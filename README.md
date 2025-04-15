@@ -23,14 +23,15 @@ Java Spring Boot application for managing cash operations (deposits, withdrawals
 - Balance and denominations check (with optional filtering)
 - Logs all transactions in `transactions.txt`
 - Writes current balances to `balances.txt`
-- Secured with a custom API key header
+- Secured with a custom API key header (configurable)
+- Global exception handler for readable error responses
 
 ---
 
 ## 🧑‍💻 Getting Started
 
 ```bash
-git clone https://github.com/<your-username>/CashDesk.git
+git clone https://github.com/pavleto01/CashDesk.git
 cd CashDesk
 mvn spring-boot:run
 ```
@@ -46,6 +47,12 @@ All requests must include the following custom header:
 ```
 FIB-X-AUTH: f9Uie8nNf112hx8s
 ```
+
+> Can be configured via `application.properties`:
+> ```properties
+> security.api-key=f9Uie8nNf112hx8s
+> security.api-key-header=FIB-X-AUTH
+> ```
 
 ---
 
@@ -78,12 +85,12 @@ Returns current balance and denominations.
 
 #### Optional query parameters:
 - `cashier`
-- `dateFrom`
-- `dateTo`
+- `dateFrom` (format: `YYYY-MM-DD`)
+- `dateTo` (format: `YYYY-MM-DD`)
 
 #### Sample usage:
 ```
-GET /api/v1/cash-balance?cashier=MARTINA
+GET /api/v1/cash-balance?cashier=MARTINA&dateFrom=2025-04-01
 ```
 
 ---
@@ -91,10 +98,10 @@ GET /api/v1/cash-balance?cashier=MARTINA
 ## 🧪 Testing with Postman
 
 1. Import:
-    - `postman/CashDesk.postman_collection.json`
-    - `postman/CashDesk.postman_environment.json`
+   - `postman/CashDesk_Full_Test_Suite.postman_collection.json`
+   - `postman/CashDesk.postman_environment.json`
 2. Select the environment: `CashDesk Environment`
-3. Run the included requests (deposit, withdrawal, balance check)
+3. Run the included requests (deposit, withdrawal, balance check, errors)
 
 ---
 
@@ -106,15 +113,15 @@ GET /api/v1/cash-balance?cashier=MARTINA
 │   ├── service/
 │   ├── model/
 │   ├── config/
-│   ├── repository/
 │   ├── dto/
-│   └── security/
+│   ├── security/
+│   └── exception/
 ├── src/main/resources/
 │   ├── application.properties
 │   ├── transactions.txt
 │   └── balances.txt
 ├── postman/
-│   ├── CashDesk.postman_collection.json
+│   ├── CashDesk_Full_Test_Suite.postman_collection.json
 │   └── CashDesk.postman_environment.json
 └── README.md
 ```
@@ -125,5 +132,5 @@ GET /api/v1/cash-balance?cashier=MARTINA
 
 - This project uses **in-memory data structures** and file-based storage (no database)
 - All balances and transactions are logged in simple `.txt` files for speed and reliability
-- No external APIs or frameworks beyond Spring Boot are used
-
+- API key and file paths are configurable
+- Ready for integration with database layer in the future
