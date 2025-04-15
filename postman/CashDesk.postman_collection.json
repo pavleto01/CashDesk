@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "CashDesk API",
+    "_postman_id": "cashdesk-collection-id",
+    "description": "Test collection for cash operations and balance checks",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Deposit BGN",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "FIB-X-AUTH",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cashier\": \"MARTINA\",\n  \"operationType\": \"DEPOSIT\",\n  \"currency\": \"BGN\",\n  \"amount\": 600,\n  \"denominations\": {\n    \"10\": 10,\n    \"50\": 10\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/cash-operation",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "cash-operation"]
+        }
+      }
+    },
+    {
+      "name": "Withdraw EUR",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "FIB-X-AUTH",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cashier\": \"PETER\",\n  \"operationType\": \"WITHDRAWAL\",\n  \"currency\": \"EUR\",\n  \"amount\": 500,\n  \"denominations\": {\n    \"50\": 10\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/cash-operation",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "cash-operation"]
+        }
+      }
+    },
+    {
+      "name": "Check Balance - All",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "FIB-X-AUTH",
+            "value": "{{api_key}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/cash-balance",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "cash-balance"]
+        }
+      }
+    },
+    {
+      "name": "Check Balance - MARTINA only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "FIB-X-AUTH",
+            "value": "{{api_key}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/cash-balance?cashier=MARTINA",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "cash-balance"],
+          "query": [
+            {
+              "key": "cashier",
+              "value": "MARTINA"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
