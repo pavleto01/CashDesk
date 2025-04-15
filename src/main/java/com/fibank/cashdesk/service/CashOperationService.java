@@ -4,7 +4,6 @@ import com.fibank.cashdesk.config.CashierInitializer;
 import com.fibank.cashdesk.dto.CashOperationRequest;
 import com.fibank.cashdesk.model.Cashier;
 import com.fibank.cashdesk.model.CurrencyBalance;
-import com.fibank.cashdesk.model.enums.CurrencyType;
 import com.fibank.cashdesk.model.enums.OperationType;
 import com.fibank.cashdesk.repository.TxtBalanceRepository;
 import org.slf4j.Logger;
