@@ -15,6 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service class responsible for calculating cash balances and retrieving transaction history.
+ *
+ * Balances are retrieved from in-memory initialized cashiers. Transaction history is read
+ * from a local file (default: transactions.txt), filtered optionally by date range.
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class CashBalanceService {

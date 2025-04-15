@@ -12,6 +12,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Filter that checks for a valid API key in every incoming HTTP request.
+ * The API key is expected in the header defined by 'security.api-key-header'.
+ * Responds with 401 Unauthorized if missing or invalid.
+ */
 @Component
 public class ApiKeyAuthFilter extends OncePerRequestFilter {
 

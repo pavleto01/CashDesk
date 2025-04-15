@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Reads transaction history for a cashier from a plain text file,
+ * optionally filtered by date range.
+ */
 @Service
 @RequiredArgsConstructor
 public class TransactionService {

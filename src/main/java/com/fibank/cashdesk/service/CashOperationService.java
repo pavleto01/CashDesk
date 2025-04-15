@@ -8,6 +8,7 @@ import com.fibank.cashdesk.model.enums.OperationType;
 import com.fibank.cashdesk.repository.TxtBalanceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Service class responsible for processing cash operations such as deposits and withdrawals.
+ *
+ * Validates the operation input, verifies available denominations for withdrawals,
+ * updates the in-memory balance for the corresponding cashier and currency,
+ * and logs the transaction to the local file system.
+ *
+ */
 @Service
 public class CashOperationService {
 
     private static final Logger logger = LoggerFactory.getLogger(CashOperationService.class);
-    private static final String TRANSACTIONS_FILE = "src/main/resources/transactions.txt";
+
+    @Value("${transactions.file.path}")
+    private String transactionFilePath;
 
     private final TxtBalanceRepository balanceRepository;
 
@@ -108,7 +119,7 @@ public class CashOperationService {
                 request.getDenominations()
         );
 
-        try (FileWriter writer = new FileWriter(TRANSACTIONS_FILE, true)) {
+        try (FileWriter writer = new FileWriter(transactionFilePath, true)) {
             writer.write(record);
         } catch (IOException e) {
             logger.error("Failed to write to transactions.txt", e);
