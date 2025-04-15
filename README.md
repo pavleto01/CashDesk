@@ -121,7 +121,7 @@ GET /api/v1/cash-balance?cashier=MARTINA&dateFrom=2025-04-01
 │   ├── transactions.txt
 │   └── balances.txt
 ├── postman/
-│   ├── CashDesk_Full_Test_Suite.postman_collection.json
+│   ├── CashDesk.postman_collection.json
 │   └── CashDesk.postman_environment.json
 └── README.md
 ```
