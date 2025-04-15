@@ -76,7 +76,7 @@ public class CashOperationService {
         int currentTotal = balance.getTotal();
         if (amount > currentTotal) return false;
 
-        // Проверка дали има достатъчно бройки от всяка номинация
+        //Validation if there is enough quantity of each nomination
         for (Map.Entry<Integer, Integer> entry : withdrawDenoms.entrySet()) {
             int denomination = entry.getKey();
             int requestedQty = entry.getValue();
@@ -86,7 +86,7 @@ public class CashOperationService {
             }
         }
 
-        // Актуализиране на деноминации
+        //Denomination update
         balance.setTotal(currentTotal - amount);
         for (Map.Entry<Integer, Integer> entry : withdrawDenoms.entrySet()) {
             int denomination = entry.getKey();

@@ -4,6 +4,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,8 +15,13 @@ import java.io.IOException;
 @Component
 public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
-    private static final String API_HEADER = "FIB-X-AUTH";
-    private static final String EXPECTED_API_KEY = "f9Uie8nNf112hx8s";
+    private static final Logger logger = LoggerFactory.getLogger(ApiKeyAuthFilter.class);
+
+    @Value("${security.api-key}")
+    private String expectedApiKey;
+
+    @Value("${security.api-key-header}")
+    private String apiHeader;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -21,12 +29,14 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String apiKey = request.getHeader(API_HEADER);
+        String apiKey = request.getHeader(apiHeader);
 
-        if (EXPECTED_API_KEY.equals(apiKey)) {
+        if (expectedApiKey.equals(apiKey)) {
             filterChain.doFilter(request, response);
         } else {
+            logger.warn("Unauthorized access attempt. Missing or invalid API key from IP: {}", request.getRemoteAddr());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("text/plain");
             response.getWriter().write("Unauthorized: Invalid API key");
         }
     }

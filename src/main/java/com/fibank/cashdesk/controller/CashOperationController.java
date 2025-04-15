@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +21,15 @@ public class CashOperationController {
 
     @PostMapping
     public ResponseEntity<?> handleCashOperation(
-            @RequestHeader("FIB-X-AUTH") String apiKey,
             @RequestBody @Valid CashOperationRequest request
     ) {
-        logger.info("Received {} operation from {} with {} {}",
+        logger.info("Received {} operation from {} with {} {} and denominations {}",
                 request.getOperationType(),
                 request.getCashier(),
                 request.getAmount(),
-                request.getCurrency());
+                request.getCurrency(),
+                request.getDenominations());
 
-        return cashOperationService.processOperation(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cashOperationService.processOperation(request));
     }
 }

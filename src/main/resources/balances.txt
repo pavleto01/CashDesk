@@ -1,0 +1,42 @@
+Cashier: MARTINA
+  Currency: BGN
+  Total: 1600
+  Denominations:
+    50 -> 20
+    10 -> 60
+
+  Currency: EUR
+  Total: 2000
+  Denominations:
+    100 -> 10
+    20 -> 50
+
+-------------------------------------
+Cashier: PETER
+  Currency: BGN
+  Total: 1000
+  Denominations:
+    50 -> 10
+    10 -> 50
+
+  Currency: EUR
+  Total: 1500
+  Denominations:
+    100 -> 10
+    20 -> 0
+
+-------------------------------------
+Cashier: LINDA
+  Currency: BGN
+  Total: 1000
+  Denominations:
+    50 -> 10
+    10 -> 50
+
+  Currency: EUR
+  Total: 2000
+  Denominations:
+    100 -> 10
+    20 -> 50
+
+-------------------------------------

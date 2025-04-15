@@ -15,6 +15,10 @@ public class CashierInitializer {
 
     @PostConstruct
     public void initCashiers() {
+        if (!CASHIERS.isEmpty()) {
+            return; // prevent duplicate initialization
+        }
+
         CASHIERS.put("MARTINA", createCashier("MARTINA"));
         CASHIERS.put("PETER", createCashier("PETER"));
         CASHIERS.put("LINDA", createCashier("LINDA"));
